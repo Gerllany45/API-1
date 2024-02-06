@@ -9,9 +9,6 @@ app.get('/', (req, res) => {
     res.send('Bem-vindo')
 });
 
-app.listen(3000, function () {
-    console.log('servicço rodando em http://localhost:3000');
-});
 
 app.post('/usuario', async (req, res) => {
     const nome = req.body.nome
@@ -49,4 +46,24 @@ app.get('/listarUsuarios', async (req, res) => {
       }
 
 })
+
+
+app.put('/atualizarUsuario/:id',async(req,res)=>{
+    const id=req.params.id
+    const nome=req.body.nome
+
+    try {
+        await firestore.updateDoc(firestore.doc(db,"usuario",id),{
+            nome:nome,
+        })
+        res.send('Usuário atualizado com sucesso!')
+    } catch (e) {
+        console.log('Erroao atualizar o usuário:'+ e)
+        res.status(500)
+    }
+})
+
+app.listen(3000, function () {
+    console.log('servicço rodando em http://localhost:3000');
+});
 
