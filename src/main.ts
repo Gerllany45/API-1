@@ -10,36 +10,38 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/usuario', async (req, res) => {
+app.post('/formulario', async (req, res) => {
     const nome = req.body.nome
     const email = req.body.email
     const telefone = req.body.telefone
+    const feedback = req.body.feedback
 
     try {
-        const docRef = await firestore.addDoc(firestore.collection(db, 'usuario'), {
+        const docRef = await firestore.addDoc(firestore.collection(db, 'formulario'), {
             nome: nome,
             email: email,
-            telefone: telefone
+            telefone: telefone,
+            feedback:feedback,
         })
-        res.send("Usuário  adicionado com sucesso" + docRef.id);
+        res.send("Resposta enviada com sucesso" + docRef.id);
     } catch (e) {
         console.log(e)
         res.status(500).send(e)
     }
 });
 
-app.get('/listarUsuarios', async (req, res) => {
+app.get('/listarFormulario', async (req, res) => {
       try{
-        const usuarios = await firestore.getDocs(firestore.collection(db, 'usuario'))
+        const formulario = await firestore.getDocs(firestore.collection(db, 'formulario'))
 
     
 
-        const usuariosLista = usuarios.docs.map((doc) => ({
+        const formulariolistar = formulario.docs.map((doc) => ({
             id:doc.id,
            ...doc.data(),
         }))
     
-        res.send(usuariosLista)
+        res.send(formulariolistar)
         }catch(e){
          console.log("erro ao listar usuarios" + e)
          res.status(500).send("erro ao listar usuarios:"+ e)
