@@ -1,9 +1,14 @@
 import express from 'express';
 import { db, firestore } from '../banco_de_dados/firebase';
-import e from 'express';
+import cors from "cors"
 
 const app = express();
 app.use(express.json())
+app.use(express.urlencoded({extended: true}));
+app.use(cors({
+    "origin":"*",
+    "methods":"GET,HEAD,PUT,PATH,POST,DELETE",
+}))
 
 app.get('/', (req, res) => {
     res.send('Bem-vindo')
