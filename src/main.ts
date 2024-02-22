@@ -48,36 +48,36 @@ app.get('/listarFormulario', async (req, res) => {
     
         res.send(formulariolistar)
         }catch(e){
-         console.log("erro ao listar usuarios" + e)
-         res.status(500).send("erro ao listar usuarios:"+ e)
+         console.log("erro ao listar formulario" + e)
+         res.status(500).send("erro ao listar formulario:"+ e)
       }
 
 })
 
 
-app.put('/atualizarUsuario/:id',async(req,res)=>{
+app.put('/atualizarFormulario/:id',async(req,res)=>{
     const id=req.params.id
     const nome=req.body.nome
 
     try {
-        await firestore.updateDoc(firestore.doc(db,"usuario",id),{
+        await firestore.updateDoc(firestore.doc(db,"formulario",id),{
             nome:nome,
         })
-        res.send('Usuário atualizado com sucesso!')
+        res.send('formulario atualizado com sucesso!')
     } catch (e) {
-        console.log('Erro ao atualizar o usuário:'+ e)
+        console.log('Erro ao atualizar o formulario:'+ e)
         res.status(500)
     }
 })
 
-app.delete('/deletarUsuario/:id', async (req,res) => {
+app.delete('/deletarFormulario/:id', async (req,res) => {
     const id= req.params.id
     try {
-        await firestore.deleteDoc(firestore.doc(db,'usuario',id))
-        res.send("Usuário deletado com sucesso")
+        await firestore.deleteDoc(firestore.doc(db,'formulario',id))
+        res.send("formulario deletado com sucesso")
     } catch (e) {
-        console.log('Erro ao deletar o usuário'+e)
-        res.status(500).send('Erro ao deletar o usuário'+e)
+        console.log('Erro ao deletar o formulario'+e)
+        res.status(500).send('Erro ao deletar o formulario'+e)
     }
 })
 
